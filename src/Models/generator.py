@@ -16,7 +16,7 @@ class Generator(nn.Module):
         self.upsample_3 = UpSample(deep_channels=64 * 3, in_features=64 * 2, out_features=64 * 2, kernel_size=kernel_size, stride=stride, padding=padding)
         self.upsample_4 = UpSample(deep_channels=64 * 2, in_features=64,  out_features=64,  kernel_size=kernel_size, stride=stride, padding=padding)
         self.conv = nn.Conv2d(64, in_features, kernel_size=kernel_size, stride=stride, padding=padding)
-        self.sigmoid=nn.Sigmoid()
+        # self.sigmoid=nn.Sigmoid()
 
     def forward(self, x):
         x1, skip_1 = self.downsample_1(x)
@@ -30,4 +30,4 @@ class Generator(nn.Module):
         x = self.upsample_3(x, skip_2)
         x = self.upsample_4(x, skip_1)
 
-        return self.sigmoid(self.conv(x))
+        return self.conv(x)

@@ -23,7 +23,11 @@ class Discriminator(nn.Module):
         self.leaky_relu6 = nn.LeakyReLU()
 
         self.dim_reduce_2 = nn.Conv2d(128, 1, kernel_size=(4, 4), stride = (7, 7), padding=0)
-        self.sigmoid = nn.Sigmoid()
+        self.flatten = nn.Flatten(start_dim=1)
+        self.linear = nn.Linear(1296, 1)
+
+
+        
 
     def forward(self, x):
         # print("discriminator_r1", x.shape)
@@ -38,4 +42,4 @@ class Discriminator(nn.Module):
         x = self.leaky_relu5(self.residual5(x))
 
         x = self.leaky_relu6(self.dim_reduce_1(x))
-        return self.sigmoid(self.dim_reduce_2(x))
+        return self.linear(self.flatten(self.dim_reduce_2(x)))

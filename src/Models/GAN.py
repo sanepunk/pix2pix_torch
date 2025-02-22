@@ -35,7 +35,9 @@ class Pix2Pix(nn.Module):
             print(f"Error: {e}")
         
     def generate(self, x):
-        return self.generator(x)
+        x =  self.generator(x)
+        x = torch.clamp(x, -1, 1)
+        return x
     
     def save(self, path: str):
         try:
