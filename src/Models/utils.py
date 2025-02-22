@@ -43,7 +43,7 @@ class DownSample(nn.Module):
 
     def forward(self, x):
         x = self.block(x)
-        print("downsample main", x.shape)
+        # print("downsample main", x.shape)
         return self.max_pooling(x), x
 
 
@@ -59,7 +59,7 @@ class UpSample(nn.Module):
     
     def forward(self, x, skip_connection):
         x = nn.functional.interpolate(x, size=skip_connection.shape[2:], mode='bilinear', align_corners=True)
-        print("upsample main", x.shape, skip_connection.shape)
+        # print("upsample main", x.shape, skip_connection.shape)
         x = torch.concat([x, skip_connection], dim=1)
         return self.block(x)
     

@@ -26,15 +26,15 @@ class Discriminator(nn.Module):
         self.sigmoid = nn.Sigmoid()
 
     def forward(self, x):
-        print("discriminator_r1", x.shape)
+        # print("discriminator_r1", x.shape)
         x = self.leaky_relu1(self.residual1(x))
-        print("discriminator_r2")
+        # print("discriminator_r2")
         x = self.leaky_relu2(self.residual2(x))
-        print("discriminator_r3")
+        # print("discriminator_r3")
         x = self.leaky_relu3(self.residual3(x))
-        print("discriminator_r4")
+        # print("discriminator_r4")
         x = self.leaky_relu4(self.residual4(x))
-        print("discriminator_r5")
+        # print("discriminator_r5")
         x = self.leaky_relu5(self.residual5(x))
 
         x = self.leaky_relu6(self.dim_reduce_1(x))
