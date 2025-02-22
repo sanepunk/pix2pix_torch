@@ -6,15 +6,15 @@ class Generator(nn.Module):
     def __init__(self, in_features, kernel_size, maxpool_size, stride, padding):
         super(Generator, self).__init__()
         self.downsample_1 = DownSample(in_features, 64, kernel_size, maxpool_size, stride, padding)
-        self.downsample_2 = DownSample(64, 128, kernel_size, maxpool_size, stride, padding)
-        self.downsample_3 = DownSample(128, 256, kernel_size, maxpool_size, stride, padding)
-        self.downsample_4 = DownSample(256, 512, kernel_size, maxpool_size, stride, padding)
-        self.downsample_5 = DownSample(512, 1024, kernel_size, maxpool_size, stride, padding)
+        self.downsample_2 = DownSample(64, 64 * 2, kernel_size, maxpool_size, stride, padding)
+        self.downsample_3 = DownSample(64 * 2, 64 * 3, kernel_size, maxpool_size, stride, padding)
+        self.downsample_4 = DownSample(64 * 3, 64 * 4, kernel_size, maxpool_size, stride, padding)
+        self.downsample_5 = DownSample(64 * 4, 64 * 5, kernel_size, maxpool_size, stride, padding)
 
-        self.upsample_1 = UpSample(deep_channels=1024, in_features=512, out_features=512, kernel_size=kernel_size, stride=stride, padding=padding)
-        self.upsample_2 = UpSample(deep_channels=512, in_features=256, out_features=256, kernel_size=kernel_size, stride=stride, padding=padding)
-        self.upsample_3 = UpSample(deep_channels=256, in_features=128, out_features=128, kernel_size=kernel_size, stride=stride, padding=padding)
-        self.upsample_4 = UpSample(deep_channels=128, in_features=64,  out_features=64,  kernel_size=kernel_size, stride=stride, padding=padding)
+        self.upsample_1 = UpSample(deep_channels=64 * 5, in_features=64 * 4, out_features=64 * 4, kernel_size=kernel_size, stride=stride, padding=padding)
+        self.upsample_2 = UpSample(deep_channels=64 * 4, in_features=64 * 3, out_features=64 * 3, kernel_size=kernel_size, stride=stride, padding=padding)
+        self.upsample_3 = UpSample(deep_channels=64 * 3, in_features=64 * 2, out_features=64 * 2, kernel_size=kernel_size, stride=stride, padding=padding)
+        self.upsample_4 = UpSample(deep_channels=64 * 2, in_features=64,  out_features=64,  kernel_size=kernel_size, stride=stride, padding=padding)
         self.conv = nn.Conv2d(64, in_features, kernel_size=kernel_size, stride=stride, padding=padding)
         self.sigmoid=nn.Sigmoid()
 
