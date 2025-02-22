@@ -7,19 +7,19 @@ class Discriminator(nn.Module):
         self.residual1 = ResidualBlock(in_features, 64, kernel_size=kernel_size, stride=stride, padding=padding)
         self.leaky_relu1 = nn.LeakyReLU()
 
-        self.residual2 = ResidualBlock(64, 128, kernel_size=kernel_size, stride=stride, padding=padding)
+        self.residual2 = ResidualBlock(64, 64 * 2, kernel_size=kernel_size, stride=stride, padding=padding)
         self.leaky_relu2 = nn.LeakyReLU()
 
-        self.residual3 = ResidualBlock(128, 256, kernel_size=kernel_size, stride=stride, padding=padding)
+        self.residual3 = ResidualBlock(64 * 2, 64 * 3, kernel_size=kernel_size, stride=stride, padding=padding)
         self.leaky_relu3 = nn.LeakyReLU()
 
-        self.residual4 = ResidualBlock(256, 512, kernel_size=kernel_size, stride=stride, padding=padding)
+        self.residual4 = ResidualBlock(64 * 3, 64 *4, kernel_size=kernel_size, stride=stride, padding=padding)
         self.leaky_relu4 = nn.LeakyReLU()
 
-        self.residual5 = ResidualBlock(512, 1024, kernel_size=kernel_size, stride=stride, padding=padding)
+        self.residual5 = ResidualBlock(64 * 4, 64 * 5, kernel_size=kernel_size, stride=stride, padding=padding)
         self.leaky_relu5 = nn.LeakyReLU()
 
-        self.dim_reduce_1 = nn.Conv2d(1024, 128, kernel_size=(3, 3), stride = stride, padding=0)
+        self.dim_reduce_1 = nn.Conv2d(64 * 5, 128, kernel_size=(3, 3), stride = stride, padding=0)
         self.leaky_relu6 = nn.LeakyReLU()
 
         self.dim_reduce_2 = nn.Conv2d(128, 1, kernel_size=(4, 4), stride = (7, 7), padding=0)
